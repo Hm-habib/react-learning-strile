@@ -25,6 +25,7 @@ function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
         <table className="table">
           <thead className="thead-dark">
             <tr>
+              <th>#</th>
               <th scope="col">Title</th>
               <th scope="col">#</th>
             </tr>
@@ -33,6 +34,7 @@ function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
             {notes.map((item, index) => {
               return (
                   <tr key={index}>
+                    <td> {index + 1} </td>
                     <td
                       onClick={() => toggleIsCompleted(index, item)}
                       style={{ maxWidth: "500px" }}
