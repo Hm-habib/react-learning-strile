@@ -27,7 +27,7 @@ function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
             <tr>
               <th>#</th>
               <th scope="col">Title</th>
-              <th scope="col">#</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody className={styles.tableWidth}>
