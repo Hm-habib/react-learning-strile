@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div>
-      <h1>Welcome to Notes</h1>
+      <h2>Welcome to Notes</h2>
       
       <NoteComponent/>
     </div>

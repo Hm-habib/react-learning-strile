@@ -1,8 +1,12 @@
 import { React, useState } from "react";
 import styles from "./NoteListComponent.module.css";
+import EditNoteCompo from "../EditNoteComponent/EditNoteCompo";
 
 function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
   const [openRows, setOpenRows] = useState([]);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [editNoteIndex, setEditNoteIndex] = useState(null);
+  const [editNoteValues, setEditNoteValues] = useState({ title: "", body: "" });
 
   const toggleExpandedRow = (index) => {
     if (openRows.includes(index)) {
@@ -66,7 +70,19 @@ function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
                       )}
                     </button>
 
-                    <button type="button" className="btn btn-info btn-sm m-1">
+                    <button
+                      type="button"
+                      className="btn btn-info btn-sm m-1"
+                      onClick={() => {
+                        setEditNoteIndex(index);
+                        setEditNoteValues((prev) => ({
+                          ...prev,
+                          title: item.title,
+                          body: item.body,
+                        }));
+                        setIsOpenEdit(true);
+                      }}
+                    >
                       Edit
                     </button>
 
@@ -85,8 +101,23 @@ function NoteListComponent({ notes, onDeleteNote, onStrikeNote }) {
           </tbody>
         </table>
       ) : (
-        <p>Note notes available</p>
+        <h3 className="mb-5 mt-3">Note notes available!</h3>
       )}
+      <EditNoteCompo
+        isOpen={isOpenEdit}
+        editFrom={editNoteValues}
+        onClose={() => {
+          setIsOpenEdit(false);
+        }}
+        onSave={() => {
+          onStrikeNote(editNoteIndex, {
+            title: editNoteValues.title,
+            body: editNoteValues.body,
+          });
+          setIsOpenEdit(false);
+        }}
+        onChangeNote={setEditNoteValues}
+      />
     </div>
   );
 }
